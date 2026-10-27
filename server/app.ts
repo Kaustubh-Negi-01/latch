@@ -102,6 +102,10 @@ export async function createApp({ port = Number(process.env.PORT || 4318), logge
   const dist = path.resolve('dist');
   const staticRoot = process.env.NODE_ENV === 'production' && existsSync(dist) ? dist : path.resolve('public');
   await app.register(fastifyStatic, { root: staticRoot, prefix: '/', index: false });
+  app.get('/', (_request, reply) => {
+    if (existsSync(path.join(staticRoot, 'index.html'))) return reply.sendFile('index.html');
+    return reply.code(404).send({ error: 'Build the workbench with npm run build, or use the Vite development server.' });
+  });
   app.setNotFoundHandler((request, reply) => {
     if (!request.url.startsWith('/api/') && !request.url.startsWith('/fixtures/') && existsSync(path.join(staticRoot, 'index.html'))) return reply.sendFile('index.html');
     return reply.code(404).send({ error: 'Not found.' });

@@ -27,7 +27,7 @@ One-click judge demo; anonymous use; realistic synthetic billing data; live Play
 Name: Latch. Plain, precise, confident language. No invented customers, performance claims, usage counts, testimonials, or voice recordings.
 
 ## Evidence on Hand
-No personal production incident has been supplied yet. All shipped scenarios are clearly labeled synthetic. A personal incident has been requested asynchronously; development proceeds with a seeded invoice workspace-switch race.
+The user supplied an actual checkout race: rapidly double-clicking Apply Promo fired concurrent API calls, and the earlier slower response arrived last and corrupted the total. That interaction is the lead scenario. The checkout records, quote versions, amounts, companies and all other fixture data are explicitly synthetic. No measured time savings or Wispr usage totals have been supplied.
 
 ## Product Principles
 - Every displayed run result comes from real execution.

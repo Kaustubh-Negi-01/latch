@@ -17,6 +17,6 @@ The repository contains a Dockerfile and Railway configuration. The service list
 
 Private source repository: [Kaustubh-Negi-01/latch](https://github.com/Kaustubh-Negi-01/latch).
 
-Railway service domain has been allocated: [Latch](https://latch-production-e63d.up.railway.app). Deployment and public execution verification are pending. An allocated domain is not a successful deployment; do not submit it until the health and judge-demo checks pass.
+Railway service domain has been allocated: [Latch](https://latch-production-e63d.up.railway.app). The verified source is pushed to branch `codex/build-latch`, and Railway's GitHub connection is authorized. Cloud deployment is in progress; public execution checks are pending. An allocated domain is not a successful deployment; do not submit it until public health and judge-demo checks pass.
 
 The app controls supported request orders in shipped fixtures. It does not run arbitrary external applications or prove that all races are eliminated. Downloaded run evidence is temporary on the host and should be saved before a restart.

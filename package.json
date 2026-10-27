@@ -8,7 +8,7 @@
     "dev:server": "tsx watch server/index.ts",
     "dev:web": "vite --host 0.0.0.0 --port 4317",
     "build": "tsc --noEmit && vite build",
-    "start": "tsx server/index.ts",
+    "start": "tsx server/start.ts",
     "test": "vitest run",
     "test:e2e": "playwright test",
     "check": "tsc --noEmit",

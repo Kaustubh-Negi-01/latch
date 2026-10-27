@@ -6,6 +6,7 @@ Verified 27 October 2026.
 - `npm test`: 39 passing domain, parser, model-adapter, API-boundary and queue tests.
 - `npm run build`: TypeScript validation and Vite production build passed.
 - `npm run test:e2e`: 9 passing browser tests.
+- All 9 browser tests also pass against the single-port production build, including the root page and dedicated fixture routes.
 - Extracted checkout, workspace, and search bundles: each standalone Playwright test passed against its included fixture server.
 
 The browser suite covers each of the three scenarios in Buggy and Guarded modes under both completion orders. The stale response returning last violates the assertion in Buggy mode; Guarded mode preserves the latest state. Both modes pass in original completion order. Seeded assertion failures are expected evidence of the bug, not runtime errors.
