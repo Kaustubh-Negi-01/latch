@@ -65,7 +65,7 @@ for (const scenario of scenarios) {
     if (scenario.id === 'checkout') {
       const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(audit.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) }))).toEqual([]);
-      if(expectedEngine==='playwright') {
+      if(expectedEngine==='playwright' && process.env.LATCH_CAPTURE_DOCS) {
         await mkdir('docs',{recursive:true});
         await page.setViewportSize({width:1440,height:1050});
         await page.evaluate(()=>window.scrollTo(0,0));
@@ -115,6 +115,25 @@ test('dictation updates active scenario, named actor order, timeline and run par
 
 test('unknown fixture paths never render the parent workbench', async ({ request }) => {
   expect((await request.get('/fixtures/missing.html')).status()).toBe(404);
+});
+
+test('previews survive unavailable fixture-asset requests and health retries', async ({ page }) => {
+  await page.route('**/fixtures/**',route=>route.abort('failed'));
+  let healthAttempts=0;
+  await page.route('**/api/health',async route=>{
+    healthAttempts+=1;
+    if(healthAttempts===1) await route.abort('failed');
+    else await route.continue();
+  });
+  await page.goto('/');
+  for(const scenario of scenarios) {
+    await page.getByRole('button',{name:scenario.nav}).click();
+    for(const label of ['Buggy app','Guarded app']) {
+      await page.getByRole('button',{name:label,exact:true}).click();
+      await expect(page.frameLocator('iframe').getByRole('heading',{name:scenario.title,exact:true})).toBeVisible();
+    }
+  }
+  await expect(page.getByText('Runner available',{exact:true})).toBeVisible();
 });
 
 test('judge entry, mobile layout, accessibility and reduced motion', async ({ page }) => {

@@ -121,7 +121,7 @@ flowchart LR
     G --> H[Runnable Playwright export]
 ```
 
-React + TypeScript + Vite power the workbench. Fastify owns HTTP, a bounded queue, execution and artifact delivery. Zod validates the finite scenario language. Playwright holds and releases actual requests; the fallback applies the equivalent finite fixture state model. SVG simulation snapshots are generated from those states without a browser.
+React + TypeScript + Vite power the workbench. Trusted fixture HTML, CSS and scripts are bundled into isolated preview documents so previews do not depend on additional asset requests. Fastify owns HTTP, a bounded queue, execution and artifact delivery. Zod validates the finite scenario language. Playwright holds and releases actual requests; the fallback applies the equivalent finite fixture state model. SVG simulation snapshots are generated from those states without a browser.
 
 | Directory | Responsibility |
 | --- | --- |

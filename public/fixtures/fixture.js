@@ -2,7 +2,7 @@
     (() => {
       const params = new URLSearchParams(location.search);
       const scenario = document.body.dataset.scenario || params.get('scenario') || (location.pathname.endsWith('checkout.html') ? 'checkout' : 'workspace');
-      const fixed = params.get('fixed') === '1';
+      const fixed = document.body.dataset.fixed === '1' || params.get('fixed') === '1';
       const app = document.getElementById('app');
       window.__latchEvents = [];
       window.__latchStarted = performance.now();

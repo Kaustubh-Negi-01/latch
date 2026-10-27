@@ -3,8 +3,9 @@ import { ArrowDownToLine, ArrowLeft, ArrowRight, BookOpen, CheckCircle2, Circle,
 import Logo from './Logo';
 import Timeline from './Timeline';
 import HowItWorks from './HowItWorks';
+import FixturePreview from './FixturePreview';
 import { examples } from './examples';
-import { interpret, runScenario } from './api';
+import { checkRunnerHealth, interpret, runScenario } from './api';
 import type { Order, Run, ScenarioId, Variant } from './types';
 
 const initialExample = examples[0];
@@ -31,7 +32,11 @@ export default function App() {
   const previousBuggy = runs.find(r => r.scenarioId === scenarioId && r.order === order && r.variant === 'buggy');
   const previousFixed = runs.find(r => r.scenarioId === scenarioId && r.order === order && r.variant === 'fixed');
 
-  useEffect(() => { fetch('/api/health').then(r => setHealth(r.ok ? 'ready' : 'offline')).catch(() => setHealth('offline')); }, []);
+  useEffect(() => {
+    const controller=new AbortController();
+    void checkRunnerHealth(controller.signal).then(ready=>{if(!controller.signal.aborted) setHealth(current=>current==='ready'?'ready':ready?'ready':'offline');});
+    return ()=>controller.abort();
+  }, []);
   useEffect(() => {
     if (!code) return;
     const dialog = document.querySelector<HTMLDialogElement>('.code-dialog');
@@ -114,7 +119,7 @@ export default function App() {
               <div className="preview-heading"><div className="variant-tabs" aria-label="Implementation"><button aria-pressed={variant === 'buggy'} className={variant === 'buggy' ? 'selected' : ''} disabled={busy} onClick={() => { setVariant('buggy'); setActiveRun(previousBuggy); setFrame(-1); }}>Buggy app</button><button aria-pressed={variant === 'fixed'} className={variant === 'fixed' ? 'selected' : ''} disabled={busy} onClick={() => { setVariant('fixed'); setActiveRun(previousFixed); setFrame(-1); }}><ShieldCheck size={13} />Guarded app</button></div><span className="preview-caption">{busy ? 'Executing scenario' : screenshot ? matchingRun?.engine === 'simulation' ? 'Simulated fixture snapshot' : 'Captured in Chromium' : 'Interactive fixture preview'}</span></div>
               <div className={`fixture-window ${busy ? 'running' : ''}`}>
                 <div className="fixture-browser-bar"><div className="window-dots"><i /><i /><i /></div><span><ShieldCheck size={11} />sandbox.latch / {example.fixture}</span><ExternalLink size={12} /></div>
-                {screenshot ? <img className="browser-screenshot" src={screenshot.url} alt={`${screenshot.label}. ${matchingRun?.engine === 'simulation' ? 'Modeled fixture snapshot' : 'Actual browser capture'} for ${example.name}.`} /> : <iframe key={`${scenarioId}-${variant}`} title={`${example.name} interactive synthetic fixture`} src={`/fixtures/${example.fixture}.html${variant === 'fixed' ? '?fixed=1' : ''}`} />}
+                {screenshot ? <img className="browser-screenshot" src={screenshot.url} alt={`${screenshot.label}. ${matchingRun?.engine === 'simulation' ? 'Modeled fixture snapshot' : 'Actual browser capture'} for ${example.name}.`} /> : <FixturePreview fixture={example.fixture} variant={variant} title={`${example.name} interactive synthetic fixture`} />}
                 {busy && <div className="running-overlay"><span className="running-icon"><LoaderCircle className="spin" size={25} /></span><strong>Running your scenario</strong><span>Executing the selected request order…</span></div>}
               </div>
               {matchingRun && matchingRun.screenshots.length > 1 && <div className="filmstrip" aria-label="Browser screenshots">{matchingRun.screenshots.map((shot, index) => <button key={shot.id} className={(frame < 0 ? index === matchingRun.screenshots.length - 1 : frame === index) ? 'selected' : ''} onClick={() => setFrame(index)}><span>{index + 1}</span>{shot.label}</button>)}</div>}
