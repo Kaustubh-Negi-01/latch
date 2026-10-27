@@ -2,6 +2,8 @@ export type ScenarioId = 'checkout' | 'workspace' | 'search' | 'optimistic';
 export type Order = 'stale-last' | 'stale-first';
 export type Variant = 'buggy' | 'fixed';
 export type Run = {
+  engine: 'playwright' | 'simulation';
+  simulationReason?: string;
   id: string;
   status: 'passed' | 'failed';
   scenarioId: ScenarioId;

@@ -1,0 +1,12 @@
+services:
+  latch:
+    build:
+      context: .
+      args:
+        LATCH_INSTALL_CHROMIUM: ${LATCH_INSTALL_CHROMIUM:-1}
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: "8080"
+      LATCH_RUNNER_MODE: ${LATCH_RUNNER_MODE:-auto}
+    restart: unless-stopped

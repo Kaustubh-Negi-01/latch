@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { simulateRace } from '../domain/simulation';
+
+const expectedEngine = process.env.LATCH_EXPECT_SIMULATION ? 'simulation' : 'playwright';
 
 const scenarios = [
   { id: 'checkout', nav: '01 Double-click checkout', title: 'Review your order', fixture: 'checkout', expected: '129.00', stale: '149.00' },
@@ -25,14 +28,19 @@ for (const scenario of scenarios) {
       const response = await responsePromise;
       expect(response.status()).toBe(200);
       const run = await response.json();
-      expect(run).toMatchObject({ scenarioId: scenario.id, variant, order: 'stale-last', engine: 'playwright', status: variant === 'buggy' ? 'failed' : 'passed', assertion: { expected: scenario.expected, actual: variant === 'buggy' ? scenario.stale : scenario.expected } });
+      expect(run).toMatchObject({ scenarioId: scenario.id, variant, order: 'stale-last', engine: expectedEngine, status: variant === 'buggy' ? 'failed' : 'passed', assertion: { expected: scenario.expected, actual: variant === 'buggy' ? scenario.stale : scenario.expected } });
+      if (expectedEngine === 'simulation') {
+        await expect(page.getByText('Deterministic simulation', {exact:true})).toBeVisible();
+        await expect(page.getByRole('link',{name:'Simulation report'})).toBeVisible();
+      }
       expect(run.events.filter((event: {kind:string}) => event.kind === 'render')).toHaveLength(2);
       await expect(page.getByText(variant === 'buggy' ? 'Race reproduced' : 'Assertion passed', { exact: true })).toBeVisible();
       await expect(page.locator('.browser-screenshot')).toBeVisible();
+      await expect.poll(() => page.locator('.browser-screenshot').evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
       for (const shot of run.screenshots) {
         const image = await request.get(shot.url);
         expect(image.status()).toBe(200);
-        expect(image.headers()['content-type']).toContain('image/png');
+        expect(image.headers()['content-type']).toContain(expectedEngine === 'simulation' ? 'image/svg+xml' : 'image/png');
       }
       const trace = await request.get(run.artifacts.trace);
       expect(trace.status()).toBe(200);
@@ -57,6 +65,12 @@ for (const scenario of scenarios) {
     if (scenario.id === 'checkout') {
       const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(audit.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) }))).toEqual([]);
+      if(expectedEngine==='playwright') {
+        await mkdir('docs',{recursive:true});
+        await page.setViewportSize({width:1440,height:1050});
+        await page.evaluate(()=>window.scrollTo(0,0));
+        await page.screenshot({path:'docs/workbench.png',fullPage:true});
+      }
     }
     expect(errors).toEqual([]);
   });
@@ -65,7 +79,9 @@ for (const scenario of scenarios) {
     for (const variant of ['buggy', 'fixed']) {
       const response = await request.post('/api/runs', { data: { scenarioId: scenario.id, order: 'stale-first', variant } });
       expect(response.status()).toBe(200);
-      expect(await response.json()).toMatchObject({ status: 'passed', assertion: { passed: true } });
+      const result=await response.json();
+      expect(result).toMatchObject({ status: 'passed', assertion: { passed: true } });
+      expect(result.assertion.actual).toBe(simulateRace({scenarioId:scenario.id as 'checkout'|'workspace'|'search',order:'stale-first',variant:variant as 'buggy'|'fixed'}).actual);
     }
   });
 }

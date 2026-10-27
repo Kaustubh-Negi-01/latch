@@ -26,4 +26,4 @@ Two labeled lanes map the earlier and latest request to their selected response 
 Interactions are immediate; small color and press changes use 120–180ms ease-out. The only continuous motion is a spinner during an actual pending operation. Reduced motion removes transitions and spinning while preserving textual progress.
 
 ## Content and evidence
-The checkout incident is supplied by the user. All products, quote amounts, companies, invoices, and saved responses are synthetic. Runs, assertions, screenshots and export artifacts come from actual execution. No claimed usage measurements or performance benchmarks are fabricated.
+The checkout incident is supplied by the user. All products, quote amounts, companies, invoices, and saved responses are synthetic. Browser screenshots and traces come from actual Chromium execution. Deterministic simulation has a visible notice, labeled SVG snapshots and a simulation report; it never impersonates a browser trace. No claimed usage measurements or performance benchmarks are fabricated.

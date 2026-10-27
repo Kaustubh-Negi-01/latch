@@ -7,7 +7,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from '@playwright/test';
 import { SCENARIOS, ScenarioIdSchema, RaceOrderSchema, RunRequestSchema, createPlan, getScenario, getScenarioProgram } from '../domain/index';
-import { ALLOWED_ARTIFACTS, ARTIFACT_ROOT, executeRun } from './runner';
+import { ALLOWED_ARTIFACTS, ARTIFACT_ROOT, executeRun, runnerMode, browserCoolingDown } from './runner';
 import { QueueFullError, RunQueue } from './queue';
 import { interpretNarration } from './interpreter';
 
@@ -36,7 +36,7 @@ export async function createApp({ port = Number(process.env.PORT || 4318), logge
     }
   });
 
-  app.get('/api/health', async () => ({ ok: true, service: 'latch', engine: 'playwright', browserInstalled: existsSync(chromium.executablePath()), queueDepth: queue.size, interpreter: process.env.OPENAI_API_KEY ? 'structured-model' : 'bounded-local', modelConfigured: Boolean(process.env.OPENAI_API_KEY) }));
+  app.get('/api/health', async () => ({ ok: true, service: 'latch', engine: runnerMode() === 'simulation' || browserCoolingDown() ? 'simulation' : 'playwright', runnerMode: runnerMode(), fallbackAvailable: true, browserInstalled: existsSync(chromium.executablePath()), queueDepth: queue.size, interpreter: process.env.OPENAI_API_KEY ? 'structured-model' : 'bounded-local', modelConfigured: Boolean(process.env.OPENAI_API_KEY) }));
   app.get('/api/scenarios', async () => ({ scenarios: SCENARIOS }));
   app.post('/api/demo', async () => ({ sessionId: randomUUID(), scenarioId: 'checkout', scenario: getScenario('checkout'), scenarios: SCENARIOS, plan: createPlan('checkout'), mode: 'demo', dataSource: 'synthetic' }));
 
@@ -71,8 +71,10 @@ export async function createApp({ port = Number(process.env.PORT || 4318), logge
     if (!parsed.success || !ALLOWED_ARTIFACTS.has(parsed.data.filename)) return reply.code(404).send({ error: 'Artifact not found.' });
     const file = path.join(ARTIFACT_ROOT, parsed.data.id, parsed.data.filename);
     if (!existsSync(file)) return reply.code(404).send({ error: 'Artifact expired or unavailable. Run the rehearsal again.' });
-    const isImage = parsed.data.filename.endsWith('.png');
-    const contentType = isImage ? 'image/png' : parsed.data.filename.endsWith('.zip') ? 'application/zip' : parsed.data.filename.endsWith('.json') ? 'application/json' : 'text/plain; charset=utf-8';
+    const isSvg = parsed.data.filename.endsWith('.svg');
+    const isImage = parsed.data.filename.endsWith('.png') || isSvg;
+    const contentType = isSvg ? 'image/svg+xml' : isImage ? 'image/png' : parsed.data.filename.endsWith('.zip') ? 'application/zip' : parsed.data.filename.endsWith('.json') ? 'application/json' : 'text/plain; charset=utf-8';
+    if (isSvg) reply.header('Content-Security-Policy', "default-src 'none'; style-src 'unsafe-inline'; sandbox");
     reply.header('Content-Type', contentType);
     reply.header('Content-Disposition', `${isImage ? 'inline' : 'attachment'}; filename="${parsed.data.filename}"`);
     reply.header('Cache-Control', 'private, max-age=300');

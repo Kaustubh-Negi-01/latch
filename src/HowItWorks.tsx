@@ -13,5 +13,6 @@ export default function HowItWorks() {
     </div>
     <div className="honesty-note"><ShieldCheck /><div><h2>A focused test, with clear boundaries.</h2><p>The public runner executes the included synthetic fixture applications. It controls the chosen HTTP response order. It does not prove that an application is free of all timing bugs.</p></div></div>
     <div className="build-note"><h2>Built from a real debugging problem</h2><p>A rapid double-click on Apply Promo sent concurrent requests. The earlier, slower response returned last and corrupted the checkout total. That personal incident is the starting point for Latch; the products, quote amounts, companies and example responses are synthetic.</p><p>Wispr Flow supplies dictation through its desktop app. Latch does not record audio or claim a direct Wispr SDK connection. Sample narration works without installing Wispr.</p></div>
+    <div className="build-note"><h2>If the host cannot run Chromium</h2><p>Latch switches to an explicitly labeled deterministic simulation of the shipped fixture. Modeled snapshots and a simulation report remain available, alongside the executable Playwright export. A simulation report is not a browser trace; the interface identifies which engine produced each result.</p></div>
   </section>;
 }

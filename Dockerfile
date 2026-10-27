@@ -6,12 +6,13 @@ ENV NODE_ENV=production \
     PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
 
 WORKDIR /app
+ARG LATCH_INSTALL_CHROMIUM=1
 
 # The lockfile pins Playwright. Installing its browser here keeps the runner
 # package and Chromium revision in agreement without a separate image version.
 COPY package.json package-lock.json ./
 RUN npm ci --include=dev --no-audit --no-fund \
-    && npx playwright install --with-deps chromium
+    && if [ "$LATCH_INSTALL_CHROMIUM" = "1" ]; then npx playwright install --with-deps chromium; fi
 
 COPY . .
 RUN npm run build \
