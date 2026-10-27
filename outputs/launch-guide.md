@@ -17,7 +17,7 @@ The repository contains a Dockerfile and Railway configuration. The service list
 
 Private source repository: [Kaustubh-Negi-01/latch](https://github.com/Kaustubh-Negi-01/latch).
 
-Railway service domain has been allocated: [Latch](https://latch-production-e63d.up.railway.app). The verified source is pushed to branch `codex/build-latch`, and Railway's GitHub connection is authorized. Cloud deployment is in progress; public execution checks are pending. An allocated domain is not a successful deployment; do not submit it until public health and judge-demo checks pass.
+Public application: [Latch](https://latch-production-e63d.up.railway.app). The source is on branch `codex/build-latch`, and Railway's authorized GitHub connection deploys updates automatically. The service's `/api/health` endpoint identifies browser availability, runner mode, and fallback support. See the verification report for completed checks, and open the public judge path once before recording/submission.
 
 Start a local container with `docker compose up --build -d`. The connected Railway service deploys on `git push origin codex/build-latch`.
 

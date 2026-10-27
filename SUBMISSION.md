@@ -12,7 +12,7 @@ Latch turns a spoken timing-bug description into a repeatable regression test. I
 
 Speak the 181 words below, including the two dictated corrections. Bracketed instructions are visual cues, not narration. At a measured 140–150 words per minute, the narration leaves approximately 12–18 seconds for clicks and response waits within 90 seconds. Rehearse once with the deployed runner and keep the UI visible during waits.
 
-### 0:00–0:18 — show the problem
+### 0:00–0:22 — show the problem
 
 [Open the public URL. Click **1-Click Judge Demo Mode**. Show **Race reproduced**, expected 129.00, observed 149.00.]
 
@@ -20,7 +20,7 @@ Speak the 181 words below, including the two dictated corrections. Bracketed ins
 
 One click loads the example. The latest quote should win, but the buggy app shows one hundred forty-nine dollars.”
 
-### 0:18–0:42 — show Wispr changing behavior
+### 0:22–0:44 — show Wispr changing behavior
 
 [Focus the narration box. Use Wispr Flow to dictate the quoted instruction. Click **Update scenario**, then **Run scenario**. Point to the changed lanes and passing assertion.]
 
@@ -28,7 +28,7 @@ One click loads the example. The latest quote should win, but the buggy app show
 
 Update scenario changes the response order. Run it again, and the total stays correct. The same code behaves differently when the responses arrive differently.”
 
-### 0:42–1:12 — demonstrate the regression and guard
+### 0:44–1:08 — demonstrate the regression and guard
 
 [Dictate the next correction through Wispr. Click **Update scenario**, then **Run scenario** to show $149 again. Click **Guarded app**, then **Run scenario** to show $129.]
 
@@ -36,7 +36,7 @@ Update scenario changes the response order. Run it again, and the total stays co
 
 The bug returns. Now I switch to Guarded app and run that identical order. The latest-request guard ignores the stale response. The checkout stays at one hundred twenty-nine dollars, and the assertion passes.”
 
-### 1:12–1:30 — leave with an executable artifact
+### 1:08–1:30 — leave with an executable artifact
 
 [Click **Playwright test**, show the assertion, close it, and click **Download regression bundle**. End on the workbench and visible public URL.]
 
