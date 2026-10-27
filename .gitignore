@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.playwright-mcp/
+playwright-report/
+test-results/
+work/
+.impeccable/review/
+.impeccable/cache/
+.impeccable/questions/
+.impeccable/hook.cache.json
+server/data/
+data/
+*.log

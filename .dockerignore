@@ -1,0 +1,15 @@
+.git
+node_modules
+dist
+.env
+.env.*
+!.env.example
+.impeccable
+.playwright-mcp
+work
+outputs
+test-results
+playwright-report
+server/data
+data
+*.log

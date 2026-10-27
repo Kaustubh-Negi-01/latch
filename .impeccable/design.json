@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "direction": "Proof sheet",
+  "platform": "web",
+  "mode": "operate",
+  "tokens": {
+    "colors": {"canvas":"#f4f5f7","navigation":"#f0f1f5","surface":"#ffffff","ink":"#252a36","secondary":"#5e6879","line":"#e5e7ed","action":"#bc4527","actionHover":"#a73b20","pass":"#247458","failure":"#b53c37"},
+    "fontFamily": "Manrope Variable",
+    "panelRadius": "12px",
+    "controlRadius": "7px",
+    "spacingBase": "4px",
+    "easeOut": "cubic-bezier(.23,1,.32,1)"
+  },
+  "signature": "Earlier/latest response lanes linked to actual browser evidence and assertions"
+}
