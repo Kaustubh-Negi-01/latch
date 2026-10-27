@@ -1,29 +1,30 @@
 # Latch visual system
 
 ## Direction
-Proof sheet: an ordinary working screen with precise alignment, cool daylight surfaces, compact annotation, and two request lanes that make response order legible. The user approved autonomous implementation of the proposed workbench; visual choices are delegated. Seven grounded sources considered: reference manuals, transit diagrams, typography specimens, laboratory notebooks, software review margins, technical publication figures, and print proof sheets. The direction seed assigned the seventh source (seed:241644acef67f523). Catalog alternatives informed density and consistent state grammar without changing the working-screen layout.
-
-## Scene
-A developer works at a desk in daylight, beside an editor. Bright, low-glare surfaces keep narration, request order, and the application result readable together. No decorative terminal chrome or simulated audio indicators.
+A precision workbench with a warm daylight canvas, dark green instrument surfaces, and a copper action color. The user's reference brief expands the existing Latch identity: retain the self-hosted Manrope face, orange actions, three scenario fixtures, and the established dictation → schedule → evidence workflow. Editorial scale belongs to the introductory heading; dense technical annotation belongs to request scheduling and evidence.
 
 ## Tokens
-- Canvas: #f4f5f7; navigation: #f0f1f5; panels: #ffffff.
-- Primary ink: #252a36; secondary ink: #697180; line: #e5e7ed.
-- Action: #bc4527; hover: #a73b20; wash: #fff0e9. Secondary text uses #5e6879 for accessible contrast.
-- Pass: #247458 with #edf7f1. Failure: #b53c37 with #fff0ee.
-- Earlier request: muted ochre; latest request: slate blue. These are identities, separate from test status.
-- Typeface: self-hosted Manrope Variable. Code, request routes and exported tests use the platform monospace stack.
-- Panel radius: 12px; controls: 6–7px. One-pixel borders separate panels; surfaces carry minimal elevation.
-- Spacing base: 4px, with 16–26px panel gutters and larger separation between work areas.
+- Canvas #f5f5f1; panels #ffffff; primary ink #202827; secondary ink #59655f.
+- Navigation #19211f; telemetry #1b2522; telemetry footer #141e1a.
+- Action #b74320; hover #983415; action wash #fff0e6.
+- Pass #176346 on #e9f5ee; failure #a72f2b on #fff0ed.
+- Earlier request uses ochre; latest request uses blue. Request identity is independent of assertion status.
+- Dark theme: canvas #131918, panels #1c2422, ink #edf1ea, secondary #afbeb5, action #ff9c70. Semantic result colors have dedicated dark counterparts.
+- Typeface: Manrope Variable, self-hosted. Display 43–60px/1.02 at weight 800 and tracking no tighter than -0.04em; scenario title 22–28px; control and body copy 11–13px. Platform monospace is limited to routes, fixture/engine badges, event counts, order indices, and evidence counters.
+- Panel radius 12px; controls 5–7px; one-pixel separators. Restrained offset shadows lift work areas without competing with telemetry.
+- Spacing base 4px; content gutters 16px mobile, 24–40px desktop.
 
 ## Composition
-Fixed navigation at desktop left. Header describes the current workspace and real runner reachability. One-click judge entry is visible beside the introductory task sentence. The main workbench puts response scheduling and browser evidence in the wider column, narration and export in the narrower column. On small screens the work areas stack and navigation opens from a named menu button.
+Persistent dark navigation at desktop left, with numeric scenario identities. The sticky header retains a compact judge action while reviewing lower evidence. A two-line heading and seeded demo action lead into the workbench. Request scheduling and fixture evidence occupy the wider column; narration and exports share the narrow column. At 1080px the workbench stacks. At 650px navigation becomes an offcanvas menu and all context panels fill the available width. Both themes preserve bright fixture contents because those are screenshots or isolated synthetic applications.
 
-## Signature interaction
-Two labeled lanes map the earlier and latest request to their selected response order. Running them links the schedule to real browser screenshots and an assertion. The same order can be run against guarded code. Labels explain all colored states.
+## Signature interactions
+The two-lane request waterfall shows ordinal completion gates, explicitly labeled as a sequence rather than latency. Engine labels and event counts come from actual run results. A native range slider scrubs the returned screenshots and stays synchronized with accessible filmstrip buttons. Home/End and arrow keys work through native browser semantics. The waveform responds only to narration-field focus; its label says input active, never recording. Variant buttons retain aria-pressed state and the guarded selection has a clear green boundary.
 
-## Motion
-Interactions are immediate; small color and press changes use 120–180ms ease-out. The only continuous motion is a spinner during an actual pending operation. Reduced motion removes transitions and spinning while preserving textual progress.
+## Motion and accessibility
+Press feedback uses a 1px translation. Hover and focus changes use 120–180ms transitions with named properties and cubic-bezier(.22,1,.36,1). The focus waveform animates transform only; spinners appear only during pending operations. Reduced motion disables all continuous animation and transitions, retaining static focus feedback. Strong focus outlines, a skip link, semantic status text, native inputs, and body contrast are verified with Chromium and axe. No animation is driven by React render loops.
 
-## Content and evidence
-The checkout incident is supplied by the user. All products, quote amounts, companies, invoices, and saved responses are synthetic. Browser screenshots and traces come from actual Chromium execution. Deterministic simulation has a visible notice, labeled SVG snapshots and a simulation report; it never impersonates a browser trace. No claimed usage measurements or performance benchmarks are fabricated.
+## Reference translation
+Bindplane informs the separation of overview, control, and data surfaces. Intrepid's dark engineering field, orange action, and fine dividers inform the instrument palette. Hatypo and Unifiers inform type hierarchy and crisp indices; their marketing-scale compositions are reduced to fit an operating tool. Dgrees and Sparcley inform the editorial header and restrained depth. Portfoliofy and Yarnity inform tactile control feedback. The ambient dots are confined to the introductory measuring surface. No reference logos, images, fonts, or proprietary assets are copied.
+
+## Evidence boundaries
+All sample products, companies, invoices, and quote values are synthetic. Existing runners, request gates, parsers, fixture applications, and Playwright export implementations are unchanged. Browser results and simulation results remain explicitly distinguished. Public screenshots of the workbench are review artifacts, not fabricated product results.

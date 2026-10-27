@@ -2,14 +2,16 @@
 
 MODE: Operate
 
-FORM: proof sheet, seed:241644acef67f523; code-first app implementation under the user's autonomous build authorization.
+FORM: precision instrument; warm canvas, dark telemetry, copper actions. User-directed enhancement of the existing Latch identity, informed by eight supplied reference sites.
 
 Primary task: dictate a timing hypothesis, select an explicit completion order, run it, inspect the final state, and export a regression.
 
-First viewport: named scenario, obvious Judge Demo Mode action, proposed response lanes, fixture preview, narration field, expected invariant, and a real run button. No fabricated completed run appears before execution.
+First viewport: bold task heading, one-click judge demo, active scenario, narration input and deterministic response lanes. No completed result appears before execution.
 
-States: idle fixture preview, pending run, assertion failure, assertion pass, interpretation correction, ambiguous narration, unavailable model, runner error, empty history, artifact availability, and comparison.
+Signature: ordinal waterfall paired with accessible screenshot scrubbing. Engine labels reflect actual run provenance. Focus waveform identifies an available dictation field, not captured microphone audio.
 
-Acceptance: synthetic checkout double-click scenario fails when the old response is released last and passes with the latest-request guard; inverse order passes both. Downloaded test uses the same protocol and is independently executable.
+States: idle fixture preview, pending run, assertion failure/pass, interpretation correction, ambiguous narration, unavailable runner, empty history, artifact availability, and comparison. Light and dark themes cover every state.
 
-Responsive: desktop two-column workbench and persistent navigation; mobile single-column with collapsible navigation, visible status text, and no horizontal page overflow.
+Responsive: persistent desktop navigation and two-column workbench; stacked tablet panels; mobile offcanvas navigation and full-width panels at 320px and above. Header judge action remains sticky.
+
+Acceptance: all three scenarios preserve their distinct preview, deterministic outcomes and export paths. Keyboard evidence scrubbing and reduced-motion focus feedback work. Protected backend, domain and fixture sources remain byte-for-byte identical.

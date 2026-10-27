@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
-  "direction": "Proof sheet",
+  "direction": "Precision workbench",
   "platform": "web",
   "mode": "operate",
   "tokens": {
-    "colors": {"canvas":"#f4f5f7","navigation":"#f0f1f5","surface":"#ffffff","ink":"#252a36","secondary":"#5e6879","line":"#e5e7ed","action":"#bc4527","actionHover":"#a73b20","pass":"#247458","failure":"#b53c37"},
+    "colors": {"canvas":"#f5f5f1","navigation":"#19211f","telemetry":"#1b2522","surface":"#ffffff","ink":"#202827","secondary":"#59655f","line":"#dce1dc","action":"#b74320","actionHover":"#983415","pass":"#176346","failure":"#a72f2b"},
+    "darkColors": {"canvas":"#131918","surface":"#1c2422","ink":"#edf1ea","secondary":"#afbeb5","action":"#ff9c70","pass":"#8de0b5","failure":"#ffaaa1"},
     "fontFamily": "Manrope Variable",
     "panelRadius": "12px",
-    "controlRadius": "7px",
+    "controlRadius": "6px",
     "spacingBase": "4px",
-    "easeOut": "cubic-bezier(.23,1,.32,1)"
+    "easeOut": "cubic-bezier(.22,1,.36,1)"
   },
-  "signature": "Earlier/latest response lanes linked to actual browser evidence and assertions"
+  "signature": "Ordinal response waterfall, honest engine provenance and keyboard-accessible evidence scrubbing"
 }
