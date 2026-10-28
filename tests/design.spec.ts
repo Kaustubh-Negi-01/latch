@@ -31,7 +31,7 @@ test('themes, responsive panels, dictation focus and keyboard evidence review', 
     await page.emulateMedia({ reducedMotion: 'no-preference' });
     await narration.blur();
   }
-  await page.getByRole('button', { name: '1-Click Judge Demo Mode', exact: true }).click();
+  await page.getByRole('button', { name: 'Run Scenario', exact: true }).click();
   await expect(page.getByText('Race reproduced', { exact: true })).toBeVisible();
   const scrubber = page.getByRole('slider', { name: 'Evidence scrubber' });
   await scrubber.focus();
@@ -42,13 +42,14 @@ test('themes, responsive panels, dictation focus and keyboard evidence review', 
   await page.keyboard.press('End');
   await expect(page.locator('.filmstrip button').last()).toHaveAttribute('aria-pressed', 'true');
   expect(await page.locator('.browser-screenshot').getAttribute('src')).not.toBe(firstCapture);
-  await page.getByRole('button', { name: 'Test the guarded app', exact: true }).click();
+  await page.getByRole('button', { name: 'Guarded app', exact: true }).click();
+  await page.getByRole('button', { name: 'Run Scenario', exact: true }).click();
   await expect(page.getByText('Assertion passed', { exact: true })).toBeVisible();
   const audit = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(audit.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) }))).toEqual([]);
-  await page.locator('.workspace-footer').scrollIntoViewIfNeeded();
+  await page.locator('.assertion').scrollIntoViewIfNeeded();
   expect((await page.locator('.topbar').boundingBox())!.y).toBe(0);
-  await expect(page.getByRole('button', { name: 'Judge Demo Mode', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Run Scenario', exact: true })).toBeVisible();
   if (process.env.LATCH_CAPTURE_DESIGN) {
     await mkdir('outputs/design', { recursive: true });
     await page.emulateMedia({ reducedMotion: 'reduce' });

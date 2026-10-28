@@ -6,7 +6,7 @@ Latch reproduces a checkout request race: two quick **Apply Promo** clicks, foll
 
 1. Install dependencies with `npm ci` and Chromium with `npx playwright install chromium`.
 2. Start with `npm run dev`.
-3. Open `http://localhost:4317` and select **1-Click Judge Demo Mode**.
+3. Open `http://localhost:4317` and select **Run Scenario**.
 4. Inspect the request order and captured checkout result. Compare the corrected implementation and download the regression evidence.
 
 The prepared judge path needs no account, model key, microphone access, or Wispr installation. Dictate into the narration field with Wispr for a live voice demonstration.

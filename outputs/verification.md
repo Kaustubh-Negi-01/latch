@@ -5,7 +5,7 @@ Verified 27 October 2026.
 - `npm run lint`: passed, zero lint errors or warnings.
 - `npm test`: 58 passing domain, parser, model-adapter, API-boundary, queue, simulation and failover tests.
 - `npm run build`: TypeScript validation and Vite production build passed.
-- `npm run test:e2e`: 11 passing browser tests after the frontend design upgrade.
+- `npm run test:e2e`: 12 passing browser tests after the compact layout update.
 - All 10 browser tests pass against the single-port production build, including the root page and dedicated fixture routes.
 - All 10 browser tests pass against an auto-mode production instance whose Chromium path is deliberately missing. Modeled images load, the simulation notice is visible, reports download, and no browser launch failure crashes the server.
 - All 3 regression bundles exported in simulation mode also pass when independently executed in real Chromium.

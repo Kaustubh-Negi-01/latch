@@ -6,7 +6,7 @@ Turn a spoken timing-bug hypothesis into a controlled experiment and a runnable 
 
 **[Open the public judge demo](https://latch-production-e63d.up.railway.app)** · [Submission summary and 90-second script](SUBMISSION.md)
 
-No signup. No API key. No local setup for judges. Click **1-Click Judge Demo Mode**.
+No signup. No API key. No local setup for judges. Click **Run Scenario**.
 
 ![Latch workbench with a controlled request order, guarded checkout result, narration input and regression exports](docs/workbench.png)
 
@@ -24,8 +24,8 @@ The interaction is based on the builder's own incident. All products, quote vers
 
 ## A judge's first minute
 
-1. Click **1-Click Judge Demo Mode**. Inspect the checkout failure and response lanes.
-2. Dictate “Let the first request finish first” with Wispr Flow. Click **Update scenario**, then **Run scenario**.
+1. Click **Run Scenario**. Inspect the checkout failure and response lanes.
+2. Dictate “Let the first request finish first” with Wispr Flow. Click **Update scenario**, then **Run Scenario**.
 3. Restore “Let the second request finish first.” Compare **Buggy app** with **Guarded app**.
 4. Inspect **Playwright test** and download the regression bundle and evidence archive.
 

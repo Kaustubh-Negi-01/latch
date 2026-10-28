@@ -1,12 +1,12 @@
 # Frontend design review
 
-Verified 27 October 2026. [Live Latch](https://latch-production-e63d.up.railway.app).
+Updated 28 October 2026. [Live Latch](https://latch-production-e63d.up.railway.app).
 
 | Before | After | Why |
 | --- | --- | --- |
-| Small single-line introduction | 43–60px two-line Manrope heading, copper emphasis, ambient measuring dots | Establish the task before the controls |
+| Oversized introductory hero | Compact active-scenario heading | Keep the complete workbench in one desktop viewport |
 | Pale request lanes | Dark instrument surface, ordinal gate ruler, request identities, actual engine and event metadata | Make response order immediately legible |
-| Judge entry only in the introduction | Original one-click action plus compact sticky header action | Keep demo access available during evidence review |
+| Duplicate judge actions and a second guarded-run action | One Run Scenario primary action with a 1-click demo badge | Execute the selected fixture and implementation through one consistent control |
 | Filmstrip alone | Native keyboard-accessible screenshot scrubber plus synchronized filmstrip | Inspect the captured sequence with pointer, touch or keyboard |
 | Static narration framing | Focus-driven transform waveform and explicit input-active label | Signal the dictation target without claiming audio capture |
 | One light palette | Light and dark semantic tokens throughout workbench, history, help and code preview | Maintain contrast across both viewing conditions |
@@ -22,14 +22,17 @@ Sources: [Bindplane](https://bindplane.com), [Intrepid](https://www.intrepidauto
 
 - TypeScript/Vite build and ESLint pass with zero errors.
 - 58 existing unit/API tests pass.
-- 11 Chromium browser tests pass against the production build locally.
+- 12 Chromium browser tests pass against the production build locally.
 - All three fixtures, Buggy/Guarded modes and both response orders preserve their existing outcomes.
 - Screenshots, generated tests, browser traces and regression bundle downloads pass.
 - Light/dark automated WCAG A/AA checks pass, including a completed guarded result.
 - No horizontal page overflow at 320, 390, 768, 1024 or 1440px in either theme.
 - Keyboard Home/End scrubbing changes the selected screenshot and filmstrip state.
 - Focus waveform becomes static under reduced motion; mobile navigation also disables transitions.
-- Backend runner, domain and public fixture files are byte-for-byte unchanged, verified with SHA-256 manifests.
+- No backend runner, domain, public fixture or export implementation changes.
+
+- No document scrolling at 1920×1080, 1920×900, 1440×900 and 1366×768. All three fixtures also fit after Buggy and Guarded execution at 1080p and 1440×900.
+- Complete live fixture content fits inside the scaled preview without internal scrolling. The fixture badge opens a native, Escape-dismissible explanation.
 
 ## Screenshots
 

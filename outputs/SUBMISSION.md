@@ -2,7 +2,7 @@
 
 **Track:** Builders · Solo entry  
 **Working product:** https://latch-production-e63d.up.railway.app  
-**Entry action:** 1-Click Judge Demo Mode · no account or setup required
+**Entry action:** Run Scenario (1-click demo) · no account or setup required
 
 ## Project summary — ready to paste
 
@@ -14,15 +14,15 @@ Speak the 181 words below, including the two dictated corrections. Bracketed ins
 
 ### 0:00–0:22 — show the problem
 
-[Open the public URL. Click **1-Click Judge Demo Mode**. Show **Race reproduced**, expected 129.00, observed 149.00.]
+[Open the public URL. Click **Run Scenario**. Show **Race reproduced**, expected 129.00, observed 149.00.]
 
 “I built Latch because a double-click broke my checkout. Two promo requests started together. The older, slower response arrived last and overwrote the correct total. Reproducing that timing was the frustrating part.
 
-One click loads the example. The latest quote should win, but the buggy app shows one hundred forty-nine dollars.”
+One click runs the example. The latest quote should win, but the buggy app shows one hundred forty-nine dollars.”
 
 ### 0:22–0:44 — show Wispr changing behavior
 
-[Focus the narration box. Use Wispr Flow to dictate the quoted instruction. Click **Update scenario**, then **Run scenario**. Point to the changed lanes and passing assertion.]
+[Focus the narration box. Use Wispr Flow to dictate the quoted instruction. Click **Update scenario**, then **Run Scenario**. Point to the changed lanes and passing assertion.]
 
 “Now I use Wispr Flow to change the experiment: ‘Keep this checkout, but let the first request finish first.’
 
@@ -30,7 +30,7 @@ Update scenario changes the response order. Run it again, and the total stays co
 
 ### 0:44–1:08 — demonstrate the regression and guard
 
-[Dictate the next correction through Wispr. Click **Update scenario**, then **Run scenario** to show $149 again. Click **Guarded app**, then **Run scenario** to show $129.]
+[Dictate the next correction through Wispr. Click **Update scenario**, then **Run Scenario** to show $149 again. Click **Guarded app**, then **Run Scenario** to show $129.]
 
 “Let’s restore the dangerous order: ‘Let the second request finish first.’
 
@@ -55,7 +55,7 @@ Judges can try the same workflow on this public link, without signing up.”
 ## Submission checklist
 
 - Working project URL opens without login.
-- Judge Demo Mode, dictation corrections, guarded comparison, screenshots and bundle download are verified.
+- The 1-click Run Scenario demo, dictation corrections, guarded comparison, screenshots and bundle download are verified.
 - Demo video is at most two minutes; the script above targets 90 seconds.
 - Genuine Wispr usage card is attached.
 - Add the video URL in the submission form after recording.

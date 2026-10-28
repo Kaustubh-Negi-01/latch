@@ -24,7 +24,7 @@ for (const scenario of scenarios) {
       await expect(fixture.locator('html')).toHaveAttribute('data-fixture', scenario.fixture);
       await expect(fixture.getByText(variant === 'buggy' ? 'Known buggy implementation' : 'Corrected implementation')).toBeVisible();
       const responsePromise = page.waitForResponse(response => response.url().endsWith('/api/runs') && response.request().method() === 'POST', { timeout: 40_000 });
-      await page.getByRole('button', { name: 'Run scenario', exact: true }).click();
+      await page.getByRole('button', { name: 'Run Scenario', exact: true }).click();
       const response = await responsePromise;
       expect(response.status()).toBe(200);
       const run = await response.json();
@@ -103,7 +103,7 @@ test('dictation updates active scenario, named actor order, timeline and run par
   await expect(page.getByRole('heading', { name: 'New query. Old results.' })).toBeVisible();
   await expect(page.frameLocator('iframe').getByRole('heading', { name: 'Find a document' })).toBeVisible();
   const responsePromise = page.waitForResponse(response => response.url().endsWith('/api/runs'));
-  await page.getByRole('button', { name: 'Run scenario', exact: true }).click();
+  await page.getByRole('button', { name: 'Run Scenario', exact: true }).click();
   const response = await responsePromise;
   expect(response.request().postDataJSON()).toEqual({ scenarioId: 'search', order: 'stale-first', variant: 'buggy' });
   expect(await response.json()).toMatchObject({ status: 'passed' });
@@ -139,13 +139,13 @@ test('previews survive unavailable fixture-asset requests and health retries', a
 test('judge entry, mobile layout, accessibility and reduced motion', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1050 });
   await page.goto('/');
-  await expect(page.getByRole('button', { name: '1-Click Judge Demo Mode', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Run Scenario', exact: true })).toBeVisible();
   const axe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(axe.violations.map(v => ({ id: v.id, nodes: v.nodes.map(n => n.target) }))).toEqual([]);
   await mkdir('.impeccable/review', { recursive: true });
   await page.screenshot({ path: '.impeccable/review/desktop.png', fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
-  await expect(page.getByRole('button', { name: '1-Click Judge Demo Mode', exact: true })).toBeVisible();
+  await expect(page.getByRole('button', { name: 'Run Scenario', exact: true })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.getByRole('button', { name: 'Open navigation' }).click();
   await page.getByRole('button', { name: '03 Stale search results' }).click();
