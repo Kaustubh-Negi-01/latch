@@ -12,8 +12,8 @@ Signature: ordinal waterfall paired with accessible screenshot scrubbing. Engine
 
 States: idle fixture preview, pending run, assertion failure/pass, interpretation correction, ambiguous narration, unavailable runner, empty history, artifact availability, and comparison. Light and dark themes cover every state.
 
-Responsive: persistent desktop navigation and two-column workbench; stacked tablet panels; mobile offcanvas navigation and full-width panels at 320px and above. The single header execution action remains sticky. Desktop viewports from 1366×768 through 1920×1080 are verified without document scrolling; mobile retains natural scrolling for legibility.
+Responsive: persistent desktop navigation and two-column workbench; stacked tablet panels; mobile offcanvas navigation and full-width panels at 320px and above. The single header execution action remains sticky. All viewports use natural document scrolling to preserve fixture readability.
 
 Acceptance: all three scenarios preserve their distinct preview, deterministic outcomes and export paths. Keyboard evidence scrubbing and reduced-motion focus feedback work. Protected backend, domain and fixture sources remain byte-for-byte identical.
 
-Evidence readability: all four captured frames retain a minimum 360px image height and 390px frame height. Short viewports scroll rather than compress captures. The browser frame has no external-link control.
+Evidence readability: all four captured frames use full width, automatic natural height and a 450px minimum. Live iframes follow their content height at the actual available width. Run Scenario immediately jumps to #response-order below the sticky header before the runner responds. The browser frame has no external-link control.

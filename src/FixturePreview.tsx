@@ -9,16 +9,18 @@ import type { Variant } from './types';
 const templates: Record<string,string> = { checkout, workspace, search };
 
 export default function FixturePreview({ fixture, variant, title }: { fixture:string; variant:Variant; title:string }) {
-  const stage = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(0);
-  useEffect(() => {
-    if (!stage.current) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setScale(Math.min(entry.contentRect.width / 960, entry.contentRect.height / 720));
-    });
-    observer.observe(stage.current);
-    return () => observer.disconnect();
-  }, []);
+  const observer = useRef<ResizeObserver | null>(null);
+  const [height, setHeight] = useState(720);
+  useEffect(() => () => observer.current?.disconnect(), []);
+  const fitContent = (iframe: HTMLIFrameElement) => {
+    observer.current?.disconnect();
+    const body = iframe.contentDocument?.body;
+    if (!body) return;
+    const measure = () => setHeight(Math.max(450, Math.ceil(body.getBoundingClientRect().height)));
+    measure();
+    observer.current = new ResizeObserver(measure);
+    observer.current.observe(body);
+  };
   const source=useMemo(() => {
     const template=templates[fixture];
     if(!template) return '<p>Choose a supported fixture.</p>';
@@ -30,5 +32,5 @@ export default function FixturePreview({ fixture, variant, title }: { fixture:st
       .replace('<body ',()=>`<body data-fixed="${variant==='fixed'?'1':'0'}" `)
       .replace('<script src="/fixtures/fixture.js"></script>',()=>`<script>${fixtureCode.replaceAll('</script','<\\/script')}</script>`);
   },[fixture,variant]);
-  return <div className="fixture-stage" ref={stage}><iframe key={`${fixture}-${variant}`} title={title} srcDoc={source} style={{ width: 960, height: 720, transform: `translate(-50%, -50%) scale(${scale})`, opacity: scale ? 1 : 0 }} /></div>;
+  return <div className="fixture-stage"><iframe key={`${fixture}-${variant}`} title={title} srcDoc={source} onLoad={event => fitContent(event.currentTarget)} style={{ height }} /></div>;
 }

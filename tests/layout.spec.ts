@@ -1,19 +1,12 @@
 import { test, expect } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 
-test('desktop workbench fits without document or fixture scrolling and has one execution action', async ({ page }) => {
+test('fixtures and all evidence frames render at full natural height with one execution action', async ({ page }) => {
   await page.setViewportSize({ width: 1920, height: 1080 });
   await page.goto('/');
   const assertFit = async () => {
-    expect(await page.evaluate(() => ({
-      vertical: document.documentElement.scrollHeight <= innerHeight,
-      horizontal: document.documentElement.scrollWidth <= innerWidth,
-    }))).toEqual({ vertical: true, horizontal: true });
-    for (const selector of ['.experiment-heading', '.timeline', '.fixture-window', '.narration-panel', '.evidence-panel']) {
-      const box = (await page.locator(selector).boundingBox())!;
-      expect(box.y).toBeGreaterThanOrEqual(0);
-      expect(box.y + box.height).toBeLessThanOrEqual((await page.viewportSize())!.height);
-    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    expect((await page.locator('.fixture-window').boundingBox())!.height).toBeGreaterThanOrEqual(480);
     await expect(page.getByRole('button', { name: 'Run Scenario', exact: true })).toHaveCount(1);
     await expect(page.getByText('1-click demo', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: /Judge Demo Mode/ })).toHaveCount(0);
@@ -37,16 +30,15 @@ test('desktop workbench fits without document or fixture scrolling and has one e
         if (height === 1080) await assertFit();
         const captures = page.locator('.filmstrip button');
         await expect(captures).toHaveCount(4);
-        let previewHeight: number | undefined;
         for (let frame = 0; frame < 4; frame += 1) {
           await captures.nth(frame).click();
           const image = page.locator('.browser-screenshot');
           await expect.poll(() => image.evaluate(el => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0)).toBe(true);
           const box = (await image.boundingBox())!;
-          expect(box.height).toBeGreaterThanOrEqual(360);
-          expect((await page.locator('.fixture-window').boundingBox())!.height).toBeGreaterThanOrEqual(390);
-          if (previewHeight !== undefined) expect(box.height).toBe(previewHeight);
-          previewHeight = box.height;
+          expect(box.height).toBeGreaterThanOrEqual(450);
+          expect((await page.locator('.fixture-window').boundingBox())!.height).toBeGreaterThanOrEqual(480);
+          const intrinsic = await image.evaluate(el => ({ width: (el as HTMLImageElement).naturalWidth, height: (el as HTMLImageElement).naturalHeight }));
+          expect(Math.abs(box.height - Math.max(450, box.width * intrinsic.height / intrinsic.width))).toBeLessThan(1);
           expect(await image.evaluate(el => ({ fit: getComputedStyle(el).objectFit, position: getComputedStyle(el).objectPosition }))).toEqual({ fit: 'contain', position: '50% 0%' });
         }
         await expect(page.locator('.fixture-browser-bar > svg')).toHaveCount(0);
@@ -68,5 +60,35 @@ test('desktop workbench fits without document or fixture scrolling and has one e
       await page.mouse.move(0, 0);
       await page.screenshot({ path: `outputs/layout/${theme}-1080p.png` });
     }
+  }
+});
+
+test('Run Scenario jumps to response order instantly before the runner responds', async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = Element.prototype.scrollIntoView;
+    (window as unknown as { jumps: unknown[] }).jumps = [];
+    Element.prototype.scrollIntoView = function (options) {
+      original.call(this, options);
+      if (this.id === 'response-order') (window as unknown as { jumps: unknown[] }).jumps.push({ options, top: this.getBoundingClientRect().top });
+    };
+  });
+  for (const width of [1920, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/');
+    let release!: () => void;
+    const gate = new Promise<void>(resolve => { release = resolve; });
+    await page.route('**/api/runs', async route => { await gate; await route.continue(); });
+    try {
+      await page.evaluate(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
+      await page.getByRole('button', { name: 'Run Scenario', exact: true }).click();
+      await expect(page.getByRole('button', { name: 'Running Scenario', exact: true })).toBeVisible();
+      const jumps = await page.evaluate(() => (window as unknown as { jumps: { options: unknown; top: number }[] }).jumps);
+      expect(jumps).toHaveLength(1);
+      expect(jumps[0].options).toEqual({ behavior: 'instant', block: 'start' });
+      const headerHeight = (await page.locator('.topbar').boundingBox())!.height;
+      expect(Math.abs(jumps[0].top - headerHeight)).toBeLessThan(1);
+    } finally { release(); }
+    await expect(page.getByText('Race reproduced', { exact: true })).toBeVisible();
+    await page.unroute('**/api/runs');
   }
 });

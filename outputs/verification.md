@@ -25,3 +25,5 @@ Fallback snapshots are SVG images generated from the finite fixture state. Their
 Source data, products, companies, invoices, and quote amounts in fixtures are synthetic. The checkout interaction is based on the user's actual reported promo double-click incident.
 
 Evidence preview regression: all four screenshot steps retain at least 360px height within a 390px frame across desktop and mobile, for all three fixtures in both implementations. The frame's dead external-link icon is removed. The guarded comparison still fits at 1920×1080.
+
+Natural-height update: TypeScript/Vite build and lint pass; all 13 browser tests pass. All four evidence steps use full width, natural aspect ratio and at least 450px height. Live fixtures follow content height without transforms. A held-runner test verifies the synchronous instant jump to response order, below the desktop/mobile sticky header, before a response arrives. This replaces the previous viewport-fit height constraints.

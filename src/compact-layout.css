@@ -1,4 +1,4 @@
-/* One screen, one execution action. Small screens retain natural document flow. */
+/* Natural document flow, with one execution action and readable full-width fixtures. */
 .workbench-main{padding:16px 24px;display:flex;flex-direction:column;gap:12px}
 .workbench-grid{gap:16px;grid-template-columns:minmax(0,1fr) 320px}
 .topbar{height:66px}
@@ -16,6 +16,7 @@
 .fixture-popover{max-width:480px;width:calc(100% - 32px);padding:20px;border:1px solid var(--strong-line);border-radius:9px;background:var(--surface);color:var(--ink);box-shadow:0 12px 40px #0003}
 .fixture-popover p{font-size:13px;line-height:1.8}
 .schedule-toolbar{padding:9px 20px}
+#response-order{scroll-margin-top:66px}
 .timeline{margin:0 12px 10px;padding:12px 14px 0}
 .telemetry-heading{margin-bottom:10px}
 .timeline-ruler{height:18px}
@@ -29,13 +30,12 @@
 .preview-heading{margin:0 20px 9px}
 .variant-tabs{padding:3px}
 .variant-tabs button{min-height:29px;padding:5px 10px}
-.fixture-window{display:flex;flex-direction:column;height:350px;margin:0 20px}
+.fixture-window{display:flex;flex-direction:column;height:auto;min-height:480px;margin:0 20px}
 .fixture-browser-bar{height:28px;flex-shrink:0}
 .fixture-browser-bar>span{margin-inline:auto}
-.fixture-window:has(.browser-screenshot){min-height:390px}
-.fixture-stage{position:relative;flex:1;min-height:0;overflow:hidden}
-.fixture-stage iframe{position:absolute;left:50%;top:50%;transform-origin:center center;border:0;max-width:none}
-.browser-screenshot{height:360px;min-height:360px;flex:1 0 360px;aspect-ratio:auto;object-fit:contain;object-position:center top}
+.fixture-stage{width:100%;min-height:450px}
+.fixture-stage iframe{position:static;display:block;width:100%;min-height:450px;border:0;transform:none;max-width:none}
+.browser-screenshot{display:block;width:100%;height:auto;min-height:450px;flex:none;aspect-ratio:auto;object-fit:contain;object-position:center top}
 .running-overlay{inset:28px 0 0}
 .capture-review{margin-top:6px;padding:0 20px}
 .capture-scrubber{min-height:27px}
@@ -66,18 +66,10 @@
 .comparison-summary{margin-top:0;padding:10px 18px;gap:14px;font-size:10px}
 
 @media(min-width:1100px) and (min-height:740px){
-  .workbench-main{height:calc(100dvh - 66px)}
-  .workbench-grid{flex:1;min-height:0}
-  .experiment-panel{display:flex;flex-direction:column;min-height:0;height:100%}
-  .experiment-panel>*{flex-shrink:0}
-  .fixture-window{flex:1;min-height:0;height:auto}
-  /* Let short viewports grow instead of shrinking captured evidence. */
-  .workbench-main:has(.browser-screenshot){height:auto;min-height:calc(100dvh - 66px)}
-  .workbench-main:has(.browser-screenshot) .experiment-panel{height:auto}
   .capture-review{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,1fr);align-items:center;gap:12px}
   .capture-scrubber{min-width:0}
   .assertion{margin-bottom:12px}
-  .context-column{display:flex;height:100%;min-height:0}
+  .context-column{display:flex;height:auto;min-height:0}
   .narration-panel{display:flex;flex-direction:column;flex:1;min-height:0;max-height:520px}
   .narration-panel textarea{flex:1;min-height:100px;max-height:none;resize:none}
   .narration-panel>*:not(textarea){flex-shrink:0}
@@ -92,11 +84,11 @@
 @media(max-width:1080px){
   .workbench-grid{grid-template-columns:minmax(0,1fr)}
   .context-column{display:grid;grid-template-columns:1.2fr 1fr}
-  .fixture-window{height:380px}
 }
 @media(max-width:820px){.context-column{grid-template-columns:1fr}.narration-panel{grid-row:auto}}
 @media(max-width:650px){
   .topbar{height:60px}
+  #response-order{scroll-margin-top:60px}
   .workbench-main{padding:14px 16px 22px}
   .context-column{display:flex;align-items:stretch}
   .header-actions{gap:8px}
@@ -108,7 +100,7 @@
   .experiment-heading h1{font-size:22px}
   .schedule-toolbar{padding:9px 16px}
   .preview-heading{margin:0 16px 9px}
-  .fixture-window{height:310px;margin:0 16px}
+  .fixture-window{margin:0 16px}
   .assertion{margin:10px 16px 14px}
   .capture-review{padding:0 16px}
   .timeline{margin-left:9px;margin-right:9px}
