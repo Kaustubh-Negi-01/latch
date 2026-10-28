@@ -31,9 +31,11 @@
 .variant-tabs button{min-height:29px;padding:5px 10px}
 .fixture-window{display:flex;flex-direction:column;height:350px;margin:0 20px}
 .fixture-browser-bar{height:28px;flex-shrink:0}
+.fixture-browser-bar>span{margin-inline:auto}
+.fixture-window:has(.browser-screenshot){min-height:390px}
 .fixture-stage{position:relative;flex:1;min-height:0;overflow:hidden}
 .fixture-stage iframe{position:absolute;left:50%;top:50%;transform-origin:center center;border:0;max-width:none}
-.browser-screenshot{height:calc(100% - 28px);min-height:0;aspect-ratio:auto;object-fit:contain}
+.browser-screenshot{height:360px;min-height:360px;flex:1 0 360px;aspect-ratio:auto;object-fit:contain;object-position:center top}
 .running-overlay{inset:28px 0 0}
 .capture-review{margin-top:6px;padding:0 20px}
 .capture-scrubber{min-height:27px}
@@ -69,7 +71,12 @@
   .experiment-panel{display:flex;flex-direction:column;min-height:0;height:100%}
   .experiment-panel>*{flex-shrink:0}
   .fixture-window{flex:1;min-height:0;height:auto}
-  .browser-screenshot{height:0;flex:1}
+  /* Let short viewports grow instead of shrinking captured evidence. */
+  .workbench-main:has(.browser-screenshot){height:auto;min-height:calc(100dvh - 66px)}
+  .workbench-main:has(.browser-screenshot) .experiment-panel{height:auto}
+  .capture-review{display:grid;grid-template-columns:minmax(220px,1fr) minmax(0,1fr);align-items:center;gap:12px}
+  .capture-scrubber{min-width:0}
+  .assertion{margin-bottom:12px}
   .context-column{display:flex;height:100%;min-height:0}
   .narration-panel{display:flex;flex-direction:column;flex:1;min-height:0;max-height:520px}
   .narration-panel textarea{flex:1;min-height:100px;max-height:none;resize:none}

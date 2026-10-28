@@ -32,9 +32,24 @@ test('desktop workbench fits without document or fixture scrolling and has one e
       await page.getByRole('button', { name: variant, exact: true }).click();
       await page.getByRole('button', { name: 'Run Scenario', exact: true }).click();
       await expect(page.getByText(variant === 'Buggy app' ? 'Race reproduced' : 'Assertion passed', { exact: true })).toBeVisible();
-      for (const [width, height] of [[1920, 1080], [1440, 900]]) {
+      for (const [width, height] of [[1920, 1080], [1440, 900], [390, 844]]) {
         await page.setViewportSize({ width, height });
-        await assertFit();
+        if (height === 1080) await assertFit();
+        const captures = page.locator('.filmstrip button');
+        await expect(captures).toHaveCount(4);
+        let previewHeight: number | undefined;
+        for (let frame = 0; frame < 4; frame += 1) {
+          await captures.nth(frame).click();
+          const image = page.locator('.browser-screenshot');
+          await expect.poll(() => image.evaluate(el => (el as HTMLImageElement).complete && (el as HTMLImageElement).naturalWidth > 0)).toBe(true);
+          const box = (await image.boundingBox())!;
+          expect(box.height).toBeGreaterThanOrEqual(360);
+          expect((await page.locator('.fixture-window').boundingBox())!.height).toBeGreaterThanOrEqual(390);
+          if (previewHeight !== undefined) expect(box.height).toBe(previewHeight);
+          previewHeight = box.height;
+          expect(await image.evaluate(el => ({ fit: getComputedStyle(el).objectFit, position: getComputedStyle(el).objectPosition }))).toEqual({ fit: 'contain', position: '50% 0%' });
+        }
+        await expect(page.locator('.fixture-browser-bar > svg')).toHaveCount(0);
       }
       await page.setViewportSize({ width: 1920, height: 1080 });
     }

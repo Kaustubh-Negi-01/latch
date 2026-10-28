@@ -23,3 +23,5 @@ Narration interpretation uses the bounded built-in parser when no server-side mo
 Fallback snapshots are SVG images generated from the finite fixture state. Their ZIP is a simulation report, not a Playwright trace. Browser mode remains the preferred public execution path; automatic fallback preserves the judge workflow on restricted hosts.
 
 Source data, products, companies, invoices, and quote amounts in fixtures are synthetic. The checkout interaction is based on the user's actual reported promo double-click incident.
+
+Evidence preview regression: all four screenshot steps retain at least 360px height within a 390px frame across desktop and mobile, for all three fixtures in both implementations. The frame's dead external-link icon is removed. The guarded comparison still fits at 1920×1080.

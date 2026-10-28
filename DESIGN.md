@@ -28,3 +28,5 @@ Bindplane informs the separation of overview, control, and data surfaces. Intrep
 
 ## Evidence boundaries
 All sample products, companies, invoices, and quote values are synthetic. Existing runners, request gates, parsers, fixture applications, and Playwright export implementations are unchanged. Browser results and simulation results remain explicitly distinguished. Public screenshots of the workbench are review artifacts, not fabricated product results.
+
+Captured evidence uses a 360px minimum image height inside a 390px minimum browser frame, with contain/top positioning. The scrubber and frame selectors share a desktop row. Shorter viewports may scroll after a run rather than shrink the evidence; the complete guarded comparison remains within a 1920×1080 viewport.

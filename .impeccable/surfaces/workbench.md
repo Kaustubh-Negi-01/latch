@@ -15,3 +15,5 @@ States: idle fixture preview, pending run, assertion failure/pass, interpretatio
 Responsive: persistent desktop navigation and two-column workbench; stacked tablet panels; mobile offcanvas navigation and full-width panels at 320px and above. The single header execution action remains sticky. Desktop viewports from 1366×768 through 1920×1080 are verified without document scrolling; mobile retains natural scrolling for legibility.
 
 Acceptance: all three scenarios preserve their distinct preview, deterministic outcomes and export paths. Keyboard evidence scrubbing and reduced-motion focus feedback work. Protected backend, domain and fixture sources remain byte-for-byte identical.
+
+Evidence readability: all four captured frames retain a minimum 360px image height and 390px frame height. Short viewports scroll rather than compress captures. The browser frame has no external-link control.
