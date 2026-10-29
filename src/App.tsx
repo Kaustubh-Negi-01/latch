@@ -56,7 +56,12 @@ export default function App() {
 
   const execute = async (nextVariant = variant, demo = false) => {
     if (runningRef.current) return;
-    document.getElementById('fixture-preview')?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    const preview = document.getElementById('fixture-preview');
+    if (preview) {
+      const header = document.querySelector<HTMLElement>('.topbar');
+      const top = preview.getBoundingClientRect().top + window.scrollY - (header?.offsetHeight || 0);
+      window.scrollTo({ top, behavior: 'instant' });
+    }
     runningRef.current = true;
     setBusy(true); setError(''); setMessage(''); setActiveRun(undefined); setFrame(-1); setPage('workbench');
     const targetId = demo ? 'checkout' : scenarioId;
