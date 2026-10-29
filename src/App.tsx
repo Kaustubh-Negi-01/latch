@@ -56,7 +56,7 @@ export default function App() {
 
   const execute = async (nextVariant = variant, demo = false) => {
     if (runningRef.current) return;
-    const preview = document.getElementById('sandbox-browser-frame');
+    const preview = document.querySelector('.fixture-window');
     if (preview) {
       const top = preview.getBoundingClientRect().top + window.scrollY - 70;
       window.scrollTo({ top, behavior: 'instant' });
