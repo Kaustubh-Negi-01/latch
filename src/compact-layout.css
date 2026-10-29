@@ -17,7 +17,6 @@
 .fixture-popover p{font-size:13px;line-height:1.8}
 .schedule-toolbar{padding:9px 20px}
 #response-order{scroll-margin-top:66px}
-#fixture-preview{scroll-margin-top:66px}
 .timeline{margin:0 12px 10px;padding:12px 14px 0}
 .telemetry-heading{margin-bottom:10px}
 .timeline-ruler{height:18px}
@@ -90,7 +89,6 @@
 @media(max-width:650px){
   .topbar{height:60px}
   #response-order{scroll-margin-top:60px}
-  #fixture-preview{scroll-margin-top:60px}
   .workbench-main{padding:14px 16px 22px}
   .context-column{display:flex;align-items:stretch}
   .header-actions{gap:8px}
