@@ -56,7 +56,7 @@ export default function App() {
 
   const execute = async (nextVariant = variant, demo = false) => {
     if (runningRef.current) return;
-    document.getElementById('sandbox-preview')?.scrollIntoView({ behavior: 'instant', block: 'start' });
+    document.getElementById('fixture-preview')?.scrollIntoView({ behavior: 'instant', block: 'start' });
     runningRef.current = true;
     setBusy(true); setError(''); setMessage(''); setActiveRun(undefined); setFrame(-1); setPage('workbench');
     const targetId = demo ? 'checkout' : scenarioId;
@@ -119,7 +119,7 @@ export default function App() {
               <Timeline example={example} order={order} run={matchingRun} />
               {matchingRun?.engine === 'simulation' && <div className="simulation-notice" role="status"><FlaskConical size={18} /><div><strong>Deterministic simulation</strong><p>{matchingRun.simulationReason} These are modeled snapshots, not browser captures. The exported Playwright test is independently runnable.</p></div></div>}
               <div className="preview-heading"><div className="variant-tabs" aria-label="Implementation"><button aria-pressed={variant === 'buggy'} className={variant === 'buggy' ? 'selected' : ''} disabled={busy} onClick={() => { setVariant('buggy'); setActiveRun(previousBuggy); setFrame(-1); }}>Buggy app</button><button aria-pressed={variant === 'fixed'} className={variant === 'fixed' ? 'selected' : ''} disabled={busy} onClick={() => { setVariant('fixed'); setActiveRun(previousFixed); setFrame(-1); }}><ShieldCheck size={13} />Guarded app</button></div><span className="preview-caption">{busy ? 'Executing scenario' : screenshot ? matchingRun?.engine === 'simulation' ? 'Simulated fixture snapshot' : 'Captured in Chromium' : 'Interactive fixture preview'}</span></div>
-              <div id="sandbox-preview" className={`fixture-window ${busy ? 'running' : ''}`}>
+              <div id="fixture-preview" className={`fixture-window ${busy ? 'running' : ''}`}>
                 <div className="fixture-browser-bar"><div className="window-dots"><i /><i /><i /></div><span><ShieldCheck size={11} />sandbox.latch / {example.fixture}</span></div>
                 {screenshot ? <img className="browser-screenshot" src={screenshot.url} alt={`${screenshot.label}. ${matchingRun?.engine === 'simulation' ? 'Modeled fixture snapshot' : 'Actual browser capture'} for ${example.name}.`} /> : <FixturePreview fixture={example.fixture} variant={variant} title={`${example.name} interactive synthetic fixture`} />}
                 {busy && <div className="running-overlay"><span className="running-icon"><LoaderCircle className="spin" size={25} /></span><strong>Running your scenario</strong><span>Executing the selected request order…</span></div>}
